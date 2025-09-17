@@ -102,7 +102,9 @@ export default function Login() {
           onPress={handleLogin}
           style={[styles.btn, { backgroundColor: colors.primary }]}
         >
-          <Text style={{ color: colors.textSecondary }}>Entrar</Text>
+          <Text style={{ color: colors.textSecondary, fontSize: 20 }}>
+            Entrar
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     height: 54,
-    marginHorizontal: 30,
+    marginHorizontal: "16%",
     paddingInline: 24,
     borderRadius: 16,
     justifyContent: "center",

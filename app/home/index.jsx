@@ -136,16 +136,16 @@ export default function Home() {
       />
 
       <TextInput
-        style={[styles.input, { borderColor: colors.border }]}
+        style={[styles.input, { borderColor: colors.primary }]}
         placeholder="Título da tarefa"
-        placeholderTextColor={colors.textSecondary}
+        placeholderTextColor={colors.placeH}
         value={newTitle}
         onChangeText={setNewTitle}
       />
       <TextInput
-        style={[styles.input, { borderColor: colors.border }]}
+        style={[styles.input, { borderColor: colors.primary }]}
         placeholder="Descrição (opcional)"
-        placeholderTextColor={colors.textSecondary}
+        placeholderTextColor={colors.placeH}
         value={newDescription}
         onChangeText={setNewDescription}
       />
@@ -153,22 +153,25 @@ export default function Home() {
         onPress={handleAddTask}
         style={[styles.btn, { backgroundColor: colors.primary }]}
       >
-        <Text style={{ color: colors.textSecondary, fontSize: 18 }}>
+        <Text style={{ color: colors.text, fontSize: 18 }}>
           {" "}
           Adicionar Tarefa
         </Text>
       </TouchableOpacity>
-        <View style={{ marginTop: 16 }}>
-        <Button
-          title="Ir para Lista de Filmes"
+      <View style={{ marginTop: 16 }}>
+        <TouchableOpacity
+          style={[styles.btn, { backgroundColor: colors.btnMovies }]}
           onPress={() => router.push("/home/filmes")}
-          color="#63ff2bff"
-        />
+        >
+          <Text style={{ color: colors.textSecondary }}>
+            Ir para Lista de Filmes
+          </Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
 }
- 
+
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, marginBottom: "4%" },
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 16 },

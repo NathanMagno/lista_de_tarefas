@@ -18,13 +18,15 @@ export function ThemeProvider({ children }) {
 
   const themeColors = {
     light: {
-      background: "#F4F7FA",
+      background: "#ffffff",
       surface: "#C0C0C0",
       text: "#222B32",
-      textSecondary: "#9cc0d1",
+      textSecondary: "#e2e2e2",
       danger: "#DD3C2F",
-      primary: "#2865b6",
+      primary: "#0c6ae6",
       border: "#DDE3E9",
+      placeH: "#7d91b6",
+      btnMovies: "#39ac0f",
     },
     dark: {
       background: "#0A0A0A",
@@ -32,8 +34,10 @@ export function ThemeProvider({ children }) {
       text: "#FAFAFA",
       textSecondary: "#4e5155",
       danger: "#F64A3A",
-      primary: "#448be7",
+      primary: "#2483ff",
+      placeH: "#c4d9ff",
       border: "#262626",
+      btnMovies: "#63ff2bff",
     },
   };
 
