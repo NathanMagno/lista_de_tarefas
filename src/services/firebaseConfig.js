@@ -10,6 +10,7 @@ import {
   onSnapshot,
   serverTimestamp,
   query,
+  updateDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -40,4 +41,5 @@ export {
   serverTimestamp,
   query,
   getAuth,
+  updateDoc,
 };

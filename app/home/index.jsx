@@ -21,6 +21,7 @@ import {
   serverTimestamp,
   query,
   getAuth,
+  updateDoc,
 } from "../../src/services/firebaseConfig";
 
 export default function Home() {
@@ -69,11 +70,10 @@ export default function Home() {
     await deleteDoc(doc(db, "users", user.uid, "tasks", taskId));
   };
 
-  const toggleCompleted = async (taskId) => {
+  const toggleCompleted = async (taskId, currentStatus) => {
     const taskRef = doc(db, "users", user.uid, "tasks", taskId);
-    setComp(!comp);
-    await taskRef.update({
-      completed: comp,
+    await updateDoc(taskRef, {
+      completed: !currentStatus,
       updatedAt: serverTimestamp(),
     });
   };
@@ -88,7 +88,7 @@ export default function Home() {
           <View style={styles.taskBox}>
             <Switch
               value={item.completed}
-              onValueChange={toggleCompleted(item.id)}
+              onValueChange={() => toggleCompleted(item.id, item.completed)}
               style={{ marginRight: 10 }}
             />
             <View style={{ flex: 1 }}>

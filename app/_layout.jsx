@@ -12,10 +12,6 @@ export default function Layout() {
             headerShown: false,
           }}
         />
-        <Stack.Screen
-          name="Home"
-          options={{ title: "Tela Home", headerShown: false }}
-        />
       </Stack>
     </ThemeProvider>
   );
