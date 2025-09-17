@@ -23,10 +23,12 @@ import {
   getAuth,
   updateDoc,
 } from "../../src/services/firebaseConfig";
+import { useRouter } from "expo-router";
 
 export default function Home() {
   const auth = getAuth();
   const user = auth.currentUser;
+  const router = useRouter();
 
   const [tasks, setTasks] = useState([]);
   const [newTitle, setNewTitle] = useState("");
@@ -123,6 +125,14 @@ export default function Home() {
         onChangeText={setNewDescription}
       />
       <Button title="Adicionar Tarefa" onPress={handleAddTask} />
+
+      <View style={{ marginTop: 16 }}>
+        <Button
+          title="Ir para Lista de Filmes"
+          onPress={() => router.push("/home/filmes")}
+          color="#24fb44ff"
+        />
+      </View>
     </View>
   );
 }
