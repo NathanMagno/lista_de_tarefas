@@ -102,7 +102,7 @@ export default function Login() {
           onPress={handleLogin}
           style={[styles.btn, { backgroundColor: colors.primary }]}
         >
-          <Text style={{ color: colors.text }}>Entrar</Text>
+          <Text style={{ color: colors.textSecondary }}>Entrar</Text>
         </TouchableOpacity>
       </View>
     </View>

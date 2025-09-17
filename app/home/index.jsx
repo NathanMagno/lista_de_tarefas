@@ -23,17 +23,18 @@ import {
   getAuth,
   updateDoc,
 } from "../../src/services/firebaseConfig";
-import { useRouter } from "expo-router";
+import ThemeToggleButton from "../../src/_components/ToggleThemeButton";
+import { useTheme } from "../../src/context/themeContext";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
   const auth = getAuth();
   const user = auth.currentUser;
-  const router = useRouter();
+  const { colors } = useTheme();
 
   const [tasks, setTasks] = useState([]);
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
-  const [comp, setComp] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -59,7 +60,7 @@ export default function Home() {
     await addDoc(collection(db, "users", user.uid, "tasks"), {
       title: newTitle,
       description: newDescription,
-      completed: comp,
+      completed: false,
       dueDate: "2025-09-10T14:00:00Z",
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
@@ -81,66 +82,95 @@ export default function Home() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Minhas Tarefas</Text>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          padding: 10,
+        }}
+      >
+        <Text style={[styles.title, { color: colors.text }]}>
+          Minhas Tarefas
+        </Text>
+        <ThemeToggleButton />
+      </View>
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.taskBox}>
+          <View style={[styles.taskBox, { borderColor: colors.border }]}>
             <Switch
               value={item.completed}
               onValueChange={() => toggleCompleted(item.id, item.completed)}
               style={{ marginRight: 10 }}
+              trackColor={{ false: colors.textSecondary }}
+              thumbColor={item.completed ? colors.primary : "#fff"}
             />
             <View style={{ flex: 1 }}>
               <Text
                 style={[
                   styles.taskTitle,
+                  { color: colors.text },
                   item.completed && { textDecorationLine: "line-through" },
                 ]}
               >
                 {item.title}
               </Text>
-              <Text>{item.description}</Text>
+              <Text style={{ color: colors.text }}>{item.description}</Text>
             </View>
             <TouchableOpacity onPress={() => handleDeleteTask(item.id)}>
-              <Text style={styles.delete}>Deletar</Text>
+              <Text style={[styles.delete, { color: colors.danger }]}>
+                Deletar
+              </Text>
             </TouchableOpacity>
           </View>
         )}
-        ListEmptyComponent={<Text>Nenhuma tarefa cadastrada.</Text>}
+        ListEmptyComponent={
+          <Text style={{ color: colors.text }}>Nenhuma tarefa cadastrada.</Text>
+        }
       />
 
       <TextInput
-        style={styles.input}
+        style={[styles.input, { borderColor: colors.border }]}
         placeholder="Título da tarefa"
+        placeholderTextColor={colors.textSecondary}
         value={newTitle}
         onChangeText={setNewTitle}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, { borderColor: colors.border }]}
         placeholder="Descrição (opcional)"
+        placeholderTextColor={colors.textSecondary}
         value={newDescription}
         onChangeText={setNewDescription}
       />
-      <Button title="Adicionar Tarefa" onPress={handleAddTask} />
-
-      <View style={{ marginTop: 16 }}>
-        <Button
-          title="Ir para Lista de Filmes"
-          onPress={() => router.push("/home/filmes")}
-          color="#24fb44ff"
-        />
-      </View>
-    </View>
+      <TouchableOpacity
+        onPress={handleAddTask}
+        style={[styles.btn, { backgroundColor: colors.primary }]}
+      >
+        <Text style={{ color: colors.textSecondary, fontSize: 18 }}>
+          {" "}
+          Adicionar Tarefa
+        </Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
+  container: { flex: 1, padding: 16, marginBottom: "4%" },
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 16 },
-  input: { borderWidth: 1, borderRadius: 8, padding: 8, marginBottom: 8 },
+  input: {
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 8,
+    marginBottom: 8,
+    fontSize: 18,
+  },
   taskBox: {
     flexDirection: "row",
     padding: 10,
@@ -150,5 +180,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   taskTitle: { fontWeight: "bold", fontSize: 16 },
-  delete: { color: "red", marginLeft: 10 },
+  delete: { marginLeft: 10 },
+  btn: {
+    height: 54,
+    marginHorizontal: "20%",
+    paddingInline: 24,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30,
+  },
 });
