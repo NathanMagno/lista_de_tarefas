@@ -26,6 +26,7 @@ import {
 import ThemeToggleButton from "../../src/_components/ToggleThemeButton";
 import { useTheme } from "../../src/context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { router } from "expo-router";
 
 export default function Home() {
   const auth = getAuth();
@@ -157,10 +158,17 @@ export default function Home() {
           Adicionar Tarefa
         </Text>
       </TouchableOpacity>
+        <View style={{ marginTop: 16 }}>
+        <Button
+          title="Ir para Lista de Filmes"
+          onPress={() => router.push("/home/filmes")}
+          color="#63ff2bff"
+        />
+      </View>
     </SafeAreaView>
   );
 }
-
+ 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, marginBottom: "4%" },
   title: { fontSize: 22, fontWeight: "bold", marginBottom: 16 },
