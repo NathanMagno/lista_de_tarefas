@@ -8,14 +8,16 @@ import {
   Alert,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { useRouter } from "expo-router";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../src/services/firebaseConfig";
 import { useTheme } from "../src/context/themeContext";
 
-export default function Login({ navigation }) {
+export default function Login() {
   const { colors } = useTheme();
 
+  const router = useRouter();
   const [hidePassword, setHidePassword] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,7 +36,7 @@ export default function Login({ navigation }) {
     signInWithEmailAndPassword(auth, email, password)
       .then(async () => {
         Alert.alert("Sucesso ao logar", `Usuário logado com sucesso!`);
-        navigation.replace("Tabs");
+        router.replace("/home");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -96,8 +98,11 @@ export default function Login({ navigation }) {
           </Text>
         </View>
 
-        <TouchableOpacity onPress={handleLogin}>
-          <Text>Entrar</Text>
+        <TouchableOpacity
+          onPress={handleLogin}
+          style={[styles.btn, { backgroundColor: colors.primary }]}
+        >
+          <Text style={{ color: colors.text }}>Entrar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -109,7 +114,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-
+  btn: {
+    height: 54,
+    marginHorizontal: 30,
+    paddingInline: 24,
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 30,
+  },
   formContainer: {
     flex: 0.75,
     gap: "5%",

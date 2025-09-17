@@ -9,7 +9,12 @@ export default function Layout() {
           name="Login"
           options={{
             title: "Tela de Login",
+            headerShown: false,
           }}
+        />
+        <Stack.Screen
+          name="Home"
+          options={{ title: "Tela Home", headerShown: false }}
         />
       </Stack>
     </ThemeProvider>
