@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -13,6 +13,7 @@ import { useRouter } from "expo-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../src/services/firebaseConfig";
 import { useTheme } from "../src/context/themeContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login() {
   const { colors } = useTheme();
@@ -22,6 +23,20 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const verificarUsuarioLogado = async () => {
+      try {
+        const usuarioSalvo = await AsyncStorage.getItem('@User');
+        if (usuarioSalvo) {
+          router.replace("/home");
+        }
+      } catch (error){
+        console.log('Erro ao verificar login: ', error);
+      }
+    };
+      verificarUsuarioLogado();
+  }, []);
 
   const togglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
@@ -34,7 +49,10 @@ export default function Login() {
     }
 
     signInWithEmailAndPassword(auth, email, password)
-      .then(async () => {
+      .then(async (userCredential) => {
+        const user = userCredential.user;
+        await AsyncStorage.setItem('@User', JSON.stringify(user));
+
         Alert.alert("Sucesso ao logar", `Usuário logado com sucesso!`);
         router.replace("/home");
       })
