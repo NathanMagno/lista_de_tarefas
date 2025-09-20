@@ -1,13 +1,34 @@
+import { useEffect } from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import { useTranslation } from "react-i18next";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ToggleLanguage() {
   const { i18n } = useTranslation();
 
-  function mudarIdioma (lang) {
-    i18n.changeLanguage(lang);
+  useEffect(() => {
+    const loadLanguage = async () => {
+      try {
+        const savedLang = await AsyncStorage.getItem("appLanguage");
+        if (savedLang) {
+          i18n.changeLanguage(savedLang);
+        }
+      } catch (error) {
+        console.log("Erro ao carregar idioma:", error);
+      }
+    };
+    loadLanguage();
+  }, []);
+
+  async function mudarIdioma(lang) {
+    try {
+      await i18n.changeLanguage(lang);
+      await AsyncStorage.setItem("appLanguage", lang);
+    } catch (error) {
+      console.log("Erro ao mudar idioma:", error);
+    }
   }
-  
+
   return (
     <View style={styles.content}>
       <TouchableOpacity onPress={() => mudarIdioma("pt")}>
@@ -26,11 +47,11 @@ export default function ToggleLanguage() {
 }
 
 const styles = StyleSheet.create({
-    content: {
-        flexDirection: "row",
-        gap: 10
-    },
-    flags: {
-        fontSize: 24
-    }
-})
+  content: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  flags: {
+    fontSize: 24,
+  },
+});
