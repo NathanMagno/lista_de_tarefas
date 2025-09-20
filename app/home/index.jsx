@@ -27,10 +27,12 @@ import ThemeToggleButton from "../../src/_components/ToggleThemeButton";
 import { useTheme } from "../../src/context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
   const auth = getAuth();
   const user = auth.currentUser;
+  const { t, i18n } = useTranslation();
   const { colors } = useTheme();
 
   const [tasks, setTasks] = useState([]);
@@ -55,7 +57,7 @@ export default function Home() {
 
   const handleAddTask = async () => {
     if (!newTitle.trim()) {
-      Alert.alert("Atenção", "O título é obrigatório.");
+      Alert.alert(t("handleAddTask.titleWarning"), t("handleAddTask.descWarning"));
       return;
     }
     await addDoc(collection(db, "users", user.uid, "tasks"), {
@@ -95,7 +97,7 @@ export default function Home() {
         }}
       >
         <Text style={[styles.title, { color: colors.text }]}>
-          Minhas Tarefas
+          {t("myTasks")}
         </Text>
         <ThemeToggleButton />
       </View>
@@ -125,26 +127,26 @@ export default function Home() {
             </View>
             <TouchableOpacity onPress={() => handleDeleteTask(item.id)}>
               <Text style={[styles.delete, { color: colors.danger }]}>
-                Deletar
+                {t("deleteTaskButton")}
               </Text>
             </TouchableOpacity>
           </View>
         )}
         ListEmptyComponent={
-          <Text style={{ color: colors.text }}>Nenhuma tarefa cadastrada.</Text>
+          <Text style={{ color: colors.text }}>{t("noTaskAvailable")}</Text>
         }
       />
 
       <TextInput
         style={[styles.input, { borderColor: colors.primary }]}
-        placeholder="Título da tarefa"
+        placeholder={t("taskTitlePlaceholder")}
         placeholderTextColor={colors.placeH}
         value={newTitle}
         onChangeText={setNewTitle}
       />
       <TextInput
         style={[styles.input, { borderColor: colors.primary }]}
-        placeholder="Descrição (opcional)"
+        placeholder={t("taskDescPlaceholder")}
         placeholderTextColor={colors.placeH}
         value={newDescription}
         onChangeText={setNewDescription}
@@ -154,8 +156,7 @@ export default function Home() {
         style={[styles.btn, { backgroundColor: colors.primary }]}
       >
         <Text style={{ color: colors.text, fontSize: 18 }}>
-          {" "}
-          Adicionar Tarefa
+          {t("addTaskButton")}
         </Text>
       </TouchableOpacity>
       <View style={{ marginTop: 16 }}>
@@ -164,7 +165,7 @@ export default function Home() {
           onPress={() => router.push("/home/filmes")}
         >
           <Text style={{ color: colors.textSecondary }}>
-            Ir para Lista de Filmes
+            {t("moviesListButton")}
           </Text>
         </TouchableOpacity>
       </View>

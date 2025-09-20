@@ -1,3 +1,13 @@
 {
-    "myTasks": "Minhas Tarefas"
+    "handleAddTask": {
+        "titleWarning": "Atenção",
+        "descWarning": "O título é obrigatório"
+    },
+    "noTaskAvailable": "Nenhuma tarefa cadastrada.",
+    "myTasks": "Minhas Tarefas",
+    "deleteTaskButton": "Deletar",
+    "taskTitlePlaceholder": "Título da tarefa",
+    "taskDescPlaceholder": "Descrição (opcional)",
+    "addTaskButton": "Adicionar Tarefa",
+    "moviesListButton": "Ir para Lista de Filmes"
 }
