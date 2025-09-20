@@ -15,6 +15,9 @@ import { auth } from "../src/services/firebaseConfig";
 import { useTheme } from "../src/context/themeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
+import ToggleLanguage from "../src/_components/LanguageToggleButton/LanguageToggleButton";
+import ThemeToggleButton from "../src/_components/ToggleThemeButton";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Login() {
   const { t } = useTranslation();
@@ -77,7 +80,23 @@ export default function Login() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          padding: 10,
+        }}
+      >
+        <Text style={[styles.title, { color: colors.text }]}>
+          {t("login.title")}
+        </Text>
+        <View>
+          <ThemeToggleButton />
+          <ToggleLanguage />
+        </View>
+      </View>
       <View style={styles.formContainer}>
         <View style={[styles.inputBox, { backgroundColor: colors.surface }]}>
           <TextInput
@@ -133,7 +152,7 @@ export default function Login() {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -141,6 +160,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '600',
+    marginBottom: 12,
+    textAlign: 'center',
   },
   btn: {
     height: 54,

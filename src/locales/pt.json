@@ -1,5 +1,6 @@
 {
   "login": {
+    "title": "Lista de Tarefas",
     "emailPlaceholder": "Insira seu e-mail",
     "passwordPlaceholder": "Insira sua senha",
     "loginButton": "Entrar",

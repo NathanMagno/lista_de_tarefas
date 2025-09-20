@@ -1,5 +1,6 @@
 {
   "login": {
+    "title": "To Do List",
     "emailPlaceholder": "Enter your email",
     "passwordPlaceholder": "Enter your password",
     "loginButton": "Sign In",
