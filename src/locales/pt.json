@@ -22,6 +22,7 @@
   "taskDescPlaceholder": "Descrição (opcional)",
   "addTaskButton": "Adicionar Tarefa",
   "moviesListButton": "Lista de Filmes",
+  "dueDateButton": "Vencimento",
   "movies": {
     "titleMovie": "Lista de Filmes",
     "moviesInputPlaceholder": "Buscar filmes: (ex. Batman)",

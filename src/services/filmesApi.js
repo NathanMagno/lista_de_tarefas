@@ -1,7 +1,6 @@
 const API_KEY = '6acb0310';
 const BASE_URL = 'https://www.omdbapi.com/';
 
-// Busca por termo, retorna array de filmes (cada item tem imdbID, Title, Year, Poster)
 export async function buscarFilmesPorTermo(termo) {
   const url = `${BASE_URL}?apikey=${API_KEY}&s=${encodeURIComponent(termo)}`;
   const res = await fetch(url);

@@ -22,6 +22,7 @@
   "taskDescPlaceholder": "Description (optional)",
   "addTaskButton": "Add Task",
   "moviesListButton": "Movies List",
+  "dueDateButton": "Due",
   "movies": {
     "titleMovie": "Movies List",
     "moviesInputPlaceholder": "Search movies: (e.g. Batman)",

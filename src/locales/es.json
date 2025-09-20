@@ -22,6 +22,7 @@
   "taskDescPlaceholder": "Descripción (opcional)",
   "addTaskButton": "Agregar Tarea",
   "moviesListButton": "Lista de Películas",
+  "dueDateButton": "Venc.",
   "movies": {
     "titleMovie": "Lista de Películas",
     "moviesInputPlaceholder": "Buscar películas: (ej. Batman)",
