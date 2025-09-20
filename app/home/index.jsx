@@ -28,6 +28,7 @@ import { useTheme } from "../../src/context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
+import ToggleLanguage from "../../src/_components/LanguageToggleButton/LanguageToggleButton";
 
 export default function Home() {
   const auth = getAuth();
@@ -99,7 +100,10 @@ export default function Home() {
         <Text style={[styles.title, { color: colors.text }]}>
           {t("myTasks")}
         </Text>
-        <ThemeToggleButton />
+        <View>
+          <ThemeToggleButton />
+          <ToggleLanguage />
+        </View>
       </View>
       <FlatList
         data={tasks}
