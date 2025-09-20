@@ -1,13 +1,30 @@
 {
-    "handleAddTask": {
-        "titleWarning": "Atenção",
-        "descWarning": "O título é obrigatório"
-    },
-    "noTaskAvailable": "Nenhuma tarefa cadastrada.",
-    "myTasks": "Minhas Tarefas",
-    "deleteTaskButton": "Deletar",
-    "taskTitlePlaceholder": "Título da tarefa",
-    "taskDescPlaceholder": "Descrição (opcional)",
-    "addTaskButton": "Adicionar Tarefa",
-    "moviesListButton": "Ir para Lista de Filmes"
+  "login": {
+    "emailPlaceholder": "Insira seu e-mail",
+    "passwordPlaceholder": "Insira sua senha",
+    "loginButton": "Entrar",
+    "emptyFieldsWarningTitle": "Atenção",
+    "emptyFieldsWarningDesc": "Preencha todos os campos!",
+    "successLoginTitle": "Sucesso ao logar",
+    "successLoginDesc": "Usuário logado com sucesso!",
+    "invalidCredentials": "E-mail ou senha incorretos! Tente novamente",
+    "genericError": "Erro ao fazer login. Tente novamente mais tarde."
+  },
+  "handleAddTask": {
+    "titleWarning": "Atenção",
+    "descWarning": "O título é obrigatório"
+  },
+  "noTaskAvailable": "Nenhuma tarefa cadastrada.",
+  "myTasks": "Minhas Tarefas",
+  "deleteTaskButton": "Deletar",
+  "taskTitlePlaceholder": "Título da tarefa",
+  "taskDescPlaceholder": "Descrição (opcional)",
+  "addTaskButton": "Adicionar Tarefa",
+  "moviesListButton": "Ir para Lista de Filmes",
+  "movies": {
+    "titleMovie": "Lista de Filmes",
+    "moviesInputPlaceholder": "Buscar filmes: (ex. Batman)",
+    "noResultText": "Nenhum resultado para",
+    "errorRetrievingMovies": "Erro ao carregar filmes"
+  }
 }

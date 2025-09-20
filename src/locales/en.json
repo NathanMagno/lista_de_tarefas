@@ -1,13 +1,30 @@
 {
-    "handleAddTask": {
-        "titleWarning": "Attention",
-        "descWarning": "Title is required"
-    },
-    "noTaskAvailable": "No tasks available.",
-    "myTasks": "My Tasks",
-    "deleteTaskButton": "Delete",
-    "taskTitlePlaceholder": "Task title",
-    "taskDescPlaceholder": "Description (optional)",
-    "addTaskButton": "Add Task",
-    "moviesListButton": "Go to Movies List"
+  "login": {
+    "emailPlaceholder": "Enter your email",
+    "passwordPlaceholder": "Enter your password",
+    "loginButton": "Sign In",
+    "emptyFieldsWarningTitle": "Attention",
+    "emptyFieldsWarningDesc": "Please fill in all fields!",
+    "successLoginTitle": "Login Successful",
+    "successLoginDesc": "User logged in successfully!",
+    "invalidCredentials": "Incorrect email or password! Try again",
+    "genericError": "Error logging in. Please try again later."
+  },
+  "handleAddTask": {
+    "titleWarning": "Attention",
+    "descWarning": "The title is required"
+  },
+  "noTaskAvailable": "No tasks available.",
+  "myTasks": "My Tasks",
+  "deleteTaskButton": "Delete",
+  "taskTitlePlaceholder": "Task title",
+  "taskDescPlaceholder": "Description (optional)",
+  "addTaskButton": "Add Task",
+  "moviesListButton": "Go to Movies List",
+  "movies": {
+    "titleMovie": "Movies List",
+    "moviesInputPlaceholder": "Search movies: (e.g. Batman)",
+    "noResultText": "No results for",
+    "errorRetrievingMovies": "Error loading movies"
+  }
 }
