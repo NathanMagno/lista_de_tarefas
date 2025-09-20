@@ -1,3 +1,13 @@
 {
-    "myTasks": "Minhas Tarefas"
+    "handleAddTask": {
+        "titleWarning": "Attention",
+        "descWarning": "Title is required"
+    },
+    "noTaskAvailable": "No tasks available.",
+    "myTasks": "My Tasks",
+    "deleteTaskButton": "Delete",
+    "taskTitlePlaceholder": "Task title",
+    "taskDescPlaceholder": "Description (optional)",
+    "addTaskButton": "Add Task",
+    "moviesListButton": "Go to Movies List"
 }
