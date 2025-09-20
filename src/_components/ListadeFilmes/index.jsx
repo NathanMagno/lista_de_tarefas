@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -8,16 +8,14 @@ import {
   ActivityIndicator,
   TextInput,
   RefreshControl,
-} from 'react-native';
-import { useQuery } from '@tanstack/react-query';
-import { buscarFilmesPorTermo } from '../../services/filmesApi';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { useTheme } from '../../context/themeContext';
-import { useTranslation } from 'react-i18next';
-import ToggleLanguage from '../LanguageToggleButton/LanguageToggleButton';
-import ThemeToggleButton from '../ToggleThemeButton';
+} from "react-native";
+import { useQuery } from "@tanstack/react-query";
+import { buscarFilmesPorTermo } from "../../services/filmesApi";
+import { useTheme } from "../../context/themeContext";
+import { useTranslation } from "react-i18next";
+import BaseScreens from "../BaseScreens/BaseScreens";
 
-const termoInicial = '';
+const termoInicial = "";
 
 export default function ListaDeFilmes() {
   const { t, i18n } = useTranslation();
@@ -32,7 +30,7 @@ export default function ListaDeFilmes() {
     refetch,
     isFetching,
   } = useQuery({
-    queryKey: ['filmes', termo],
+    queryKey: ["filmes", termo],
     queryFn: () => buscarFilmesPorTermo(termo),
     enabled: Boolean(termo && termo.trim().length > 0),
   });
@@ -42,38 +40,33 @@ export default function ListaDeFilmes() {
   }, [refetch]);
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          padding: 10,
-        }}
-      >
-        <Text style={[styles.title, { color: colors.text }]}>
-          {t("movies.titleMovie")}
-        </Text>
-        <View>
-          <ThemeToggleButton />
-          <ToggleLanguage />
-        </View>
-      </View>
-
+    <BaseScreens title={t("movies.titleMovie")}>
       <TextInput
         placeholder={t("movies.moviesInputPlaceholder")}
         value={termo}
         onChangeText={setTermo}
-        style={[styles.input, { borderColor: colors.border, backgroundColor: colors.inputBg, color: colors.text }]}
+        style={[
+          styles.input,
+          {
+            borderColor: colors.border,
+            backgroundColor: colors.inputBg,
+            color: colors.text,
+          },
+        ]}
         placeholderTextColor={colors.placeH}
         returnKeyType="search"
       />
 
       {isLoading ? (
-        <ActivityIndicator size="large" color={colors.primary} style={styles.loading} />
+        <ActivityIndicator
+          size="large"
+          color={colors.primary}
+          style={styles.loading}
+        />
       ) : isError ? (
         <Text style={[styles.error, { color: colors.danger }]}>
-          {t("errorRetrievingMovies")} {error?.reason ? `: ${error.reason}` : ''}
+          {t("errorRetrievingMovies")}{" "}
+          {error?.reason ? `: ${error.reason}` : ""}
         </Text>
       ) : (
         <FlatList
@@ -81,20 +74,41 @@ export default function ListaDeFilmes() {
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.item}>
-              {item.Poster !== 'N/A' ? (
+              {item.Poster !== "N/A" ? (
                 <Image source={{ uri: item.Poster }} style={styles.poster} />
               ) : (
-                <View style={[styles.poster, styles.posterPlaceholder, { backgroundColor: colors.border }]}>
-                  <Text style={[styles.posterPlaceholderText, { color: colors.textSecondary }]}>Sem poster</Text>
+                <View
+                  style={[
+                    styles.poster,
+                    styles.posterPlaceholder,
+                    { backgroundColor: colors.border },
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.posterPlaceholderText,
+                      { color: colors.textSecondary },
+                    ]}
+                  >
+                    Sem poster
+                  </Text>
                 </View>
               )}
               <View style={styles.meta}>
-                <Text style={[styles.titleMovie, { color: colors.text }]}>{item.Title}</Text>
-                <Text style={[styles.year, { color: colors.textSecondary }]}>({item.Year})</Text>
+                <Text style={[styles.titleMovie, { color: colors.text }]}>
+                  {item.Title}
+                </Text>
+                <Text style={[styles.year, { color: colors.textSecondary }]}>
+                  ({item.Year})
+                </Text>
               </View>
             </View>
           )}
-          ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: colors.border }]} />}
+          ItemSeparatorComponent={() => (
+            <View
+              style={[styles.separator, { backgroundColor: colors.border }]}
+            />
+          )}
           refreshControl={
             <RefreshControl
               refreshing={isFetching && !isLoading}
@@ -110,7 +124,7 @@ export default function ListaDeFilmes() {
           contentContainerStyle={data.length === 0 && styles.emptyContainer}
         />
       )}
-    </SafeAreaView>
+    </BaseScreens>
   );
 }
 
@@ -124,9 +138,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: '600',
+    fontWeight: "600",
     marginBottom: 12,
-    textAlign: 'center',
+    textAlign: "center",
   },
   input: {
     borderWidth: 1,
@@ -137,8 +151,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   item: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 8,
   },
   poster: {
@@ -148,8 +162,8 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   posterPlaceholder: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   posterPlaceholderText: {
     fontSize: 12,
@@ -159,7 +173,7 @@ const styles = StyleSheet.create({
   },
   titleMovie: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   year: {
     marginTop: 2,
@@ -169,15 +183,15 @@ const styles = StyleSheet.create({
     height: 1,
   },
   empty: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 24,
   },
   emptyContainer: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   error: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 20,
-  }
+  },
 });

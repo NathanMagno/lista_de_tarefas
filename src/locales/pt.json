@@ -21,7 +21,7 @@
   "taskTitlePlaceholder": "Título da tarefa",
   "taskDescPlaceholder": "Descrição (opcional)",
   "addTaskButton": "Adicionar Tarefa",
-  "moviesListButton": "Ir para Lista de Filmes",
+  "moviesListButton": "Lista de Filmes",
   "movies": {
     "titleMovie": "Lista de Filmes",
     "moviesInputPlaceholder": "Buscar filmes: (ex. Batman)",

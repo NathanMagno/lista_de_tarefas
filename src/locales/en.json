@@ -21,7 +21,7 @@
   "taskTitlePlaceholder": "Task title",
   "taskDescPlaceholder": "Description (optional)",
   "addTaskButton": "Add Task",
-  "moviesListButton": "Go to Movies List",
+  "moviesListButton": "Movies List",
   "movies": {
     "titleMovie": "Movies List",
     "moviesInputPlaceholder": "Search movies: (e.g. Batman)",

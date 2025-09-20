@@ -1,7 +1,13 @@
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
-import { mudarIdioma } from "../../utils/mudarIdioma";
+import { useTranslation } from "react-i18next";
 
 export default function ToggleLanguage() {
+  const { i18n } = useTranslation();
+
+  function mudarIdioma (lang) {
+    i18n.changeLanguage(lang);
+  }
+  
   return (
     <View style={styles.content}>
       <TouchableOpacity onPress={() => mudarIdioma("pt")}>

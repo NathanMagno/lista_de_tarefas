@@ -15,9 +15,7 @@ import { auth } from "../src/services/firebaseConfig";
 import { useTheme } from "../src/context/themeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
-import ToggleLanguage from "../src/_components/LanguageToggleButton/LanguageToggleButton";
-import ThemeToggleButton from "../src/_components/ToggleThemeButton";
-import { SafeAreaView } from "react-native-safe-area-context";
+import BaseScreens from "../src/_components/BaseScreens/BaseScreens";
 
 export default function Login() {
   const { t } = useTranslation();
@@ -80,23 +78,7 @@ export default function Login() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          padding: 10,
-        }}
-      >
-        <Text style={[styles.title, { color: colors.text }]}>
-          {t("login.title")}
-        </Text>
-        <View>
-          <ThemeToggleButton />
-          <ToggleLanguage />
-        </View>
-      </View>
+    <BaseScreens title={t("login.title")}>
       <View style={styles.formContainer}>
         <View style={[styles.inputBox, { backgroundColor: colors.surface }]}>
           <TextInput
@@ -147,26 +129,16 @@ export default function Login() {
           onPress={handleLogin}
           style={[styles.btn, { backgroundColor: colors.primary }]}
         >
-          <Text style={{ color: colors.textSecondary, fontSize: 20 }}>
+          <Text style={{ color: colors.btnText, fontSize: 20 }}>
             {t("login.loginButton")}
           </Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </BaseScreens>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-    marginBottom: 12,
-    textAlign: 'center',
-  },
   btn: {
     height: 54,
     marginHorizontal: "16%",

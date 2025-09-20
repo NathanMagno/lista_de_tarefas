@@ -48,7 +48,8 @@ export function ThemeProvider({ children }) {
       border: "#DDE3E9",
       placeH: "#7d91b6",
       btnMovies: "#39ac0f",
-      inputBg: "#F9F9F9"
+      inputBg: "#F9F9F9",
+      btnText: "#FFF"
     },
     dark: {
       background: "#0A0A0A",
@@ -59,8 +60,9 @@ export function ThemeProvider({ children }) {
       primary: "#2483ff",
       placeH: "#c4d9ff",
       border: "#262626",
-      btnMovies: "#63ff2bff",
-      inputBg: "#1A1A1A"
+      btnMovies: "#369613",
+      inputBg: "#1A1A1A",
+      btnText: "#FFF"
     },
   };
 

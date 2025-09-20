@@ -21,7 +21,7 @@
   "taskTitlePlaceholder": "Título de la tarea",
   "taskDescPlaceholder": "Descripción (opcional)",
   "addTaskButton": "Agregar Tarea",
-  "moviesListButton": "Ir a la Lista de Películas",
+  "moviesListButton": "Lista de Películas",
   "movies": {
     "titleMovie": "Lista de Películas",
     "moviesInputPlaceholder": "Buscar películas: (ej. Batman)",

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
   TextInput,
-  Button,
   FlatList,
   TouchableOpacity,
   Alert,
@@ -24,11 +23,9 @@ import {
   updateDoc,
 } from "../../src/services/firebaseConfig";
 import { useTheme } from "../../src/context/themeContext";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
-import ThemeToggleButton from "../../src/_components/ToggleThemeButton";
-import ToggleLanguage from "../../src/_components/LanguageToggleButton/LanguageToggleButton";
+import BaseScreens from "../../src/_components/BaseScreens/BaseScreens";
 
 export default function Home() {
   const auth = getAuth();
@@ -58,7 +55,10 @@ export default function Home() {
 
   const handleAddTask = async () => {
     if (!newTitle.trim()) {
-      Alert.alert(t("handleAddTask.titleWarning"), t("handleAddTask.descWarning"));
+      Alert.alert(
+        t("handleAddTask.titleWarning"),
+        t("handleAddTask.descWarning")
+      );
       return;
     }
     await addDoc(collection(db, "users", user.uid, "tasks"), {
@@ -84,27 +84,8 @@ export default function Home() {
       updatedAt: serverTimestamp(),
     });
   };
-
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: colors.background }]}
-    >
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          padding: 10,
-        }}
-      >
-        <Text style={[styles.title, { color: colors.text }]}>
-          {t("myTasks")}
-        </Text>
-        <View>
-          <ThemeToggleButton />
-          <ToggleLanguage />
-        </View>
-      </View>
+    <BaseScreens title={t("myTasks")}>
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
@@ -159,7 +140,7 @@ export default function Home() {
         onPress={handleAddTask}
         style={[styles.btn, { backgroundColor: colors.primary }]}
       >
-        <Text style={{ color: colors.text, fontSize: 18 }}>
+        <Text style={{ color: colors.text, fontSize: 20 }}>
           {t("addTaskButton")}
         </Text>
       </TouchableOpacity>
@@ -168,12 +149,12 @@ export default function Home() {
           style={[styles.btn, { backgroundColor: colors.btnMovies }]}
           onPress={() => router.push("/home/filmes")}
         >
-          <Text style={{ color: colors.textSecondary }}>
+          <Text style={{ color: colors.text, fontSize: 20 }}>
             {t("moviesListButton")}
           </Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </BaseScreens>
   );
 }
 

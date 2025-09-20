@@ -1,5 +1,5 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
-import { useTheme } from "../context/themeContext";
+import { useTheme } from "../../context/themeContext";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function ThemeToggleButton() {
