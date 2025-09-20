@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { Appearance } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ThemeContext = createContext();
 
@@ -12,8 +13,28 @@ export function ThemeProvider({ children }) {
 
   const [theme, setTheme] = useState(colorTheme || "light");
 
-  const toggleTheme = () => {
-    setTheme((value) => (value === "light" ? "dark" : "light"));
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const savedTheme = await AsyncStorage.getItem("@AppTheme");
+        if (savedTheme) {
+          setTheme(savedTheme);
+        }
+      } catch (error) {
+        console.log("Erro ao carregar tema:", error);
+      }
+    };
+    loadTheme();
+  }, []);
+
+  const toggleTheme = async () => {
+    try {
+      const newTheme = theme === "light" ? "dark" : "light";
+      setTheme(newTheme);
+      await AsyncStorage.setItem("@AppTheme", newTheme);
+    } catch (error) {
+      console.log("Erro ao salvar tema:", error);
+    }
   };
 
   const themeColors = {
