@@ -23,11 +23,11 @@ import {
   getAuth,
   updateDoc,
 } from "../../src/services/firebaseConfig";
-import ThemeToggleButton from "../../src/_components/ToggleThemeButton";
 import { useTheme } from "../../src/context/themeContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
+import ThemeToggleButton from "../../src/_components/ToggleThemeButton";
 import ToggleLanguage from "../../src/_components/LanguageToggleButton/LanguageToggleButton";
 
 export default function Home() {

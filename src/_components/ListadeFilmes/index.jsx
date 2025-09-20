@@ -1,12 +1,27 @@
-
-import React, { useState, useCallback } from 'react';
-import { View, Text, FlatList, Image, StyleSheet, ActivityIndicator, TextInput, RefreshControl } from 'react-native';
+import { useState, useCallback } from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  StyleSheet,
+  ActivityIndicator,
+  TextInput,
+  RefreshControl,
+} from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { buscarFilmesPorTermo } from '../../services/filmesApi';
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useTheme } from '../../context/themeContext';
+import { useTranslation } from 'react-i18next';
+import ToggleLanguage from '../LanguageToggleButton/LanguageToggleButton';
+import ThemeToggleButton from '../ToggleThemeButton';
 
 const termoInicial = '';
 
 export default function ListaDeFilmes() {
+  const { t, i18n } = useTranslation();
+  const { colors } = useTheme();
   const [termo, setTermo] = useState(termoInicial);
 
   const {
@@ -27,53 +42,75 @@ export default function ListaDeFilmes() {
   }, [refetch]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Lista de Filmes</Text>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          padding: 10,
+        }}
+      >
+        <Text style={[styles.title, { color: colors.text }]}>
+          {t("movies.titleMovie")}
+        </Text>
+        <View>
+          <ThemeToggleButton />
+          <ToggleLanguage />
+        </View>
+      </View>
 
       <TextInput
-        placeholder="Buscar filmes (ex: Batman)"
+        placeholder={t("movies.moviesInputPlaceholder")}
         value={termo}
         onChangeText={setTermo}
-        style={styles.input}
+        style={[styles.input, { borderColor: colors.border, backgroundColor: colors.inputBg, color: colors.text }]}
+        placeholderTextColor={colors.placeH}
         returnKeyType="search"
       />
 
       {isLoading ? (
-        <ActivityIndicator size="large" color="#4c6ef5" style={styles.loading} />
+        <ActivityIndicator size="large" color={colors.primary} style={styles.loading} />
       ) : isError ? (
-        <Text style={styles.error}>
-          Erro ao carregar filmes{error?.reason ? `: ${error.reason}` : ''}
+        <Text style={[styles.error, { color: colors.danger }]}>
+          {t("errorRetrievingMovies")} {error?.reason ? `: ${error.reason}` : ''}
         </Text>
       ) : (
         <FlatList
           data={data}
-          keyExtractor={(item) => item.imdbID}
+          keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.item}>
               {item.Poster !== 'N/A' ? (
                 <Image source={{ uri: item.Poster }} style={styles.poster} />
               ) : (
-                <View style={[styles.poster, styles.posterPlaceholder]}>
-                  <Text style={styles.posterPlaceholderText}>Sem poster</Text>
+                <View style={[styles.poster, styles.posterPlaceholder, { backgroundColor: colors.border }]}>
+                  <Text style={[styles.posterPlaceholderText, { color: colors.textSecondary }]}>Sem poster</Text>
                 </View>
               )}
               <View style={styles.meta}>
-                <Text style={styles.titleMovie}>{item.Title}</Text>
-                <Text style={styles.year}>({item.Year})</Text>
+                <Text style={[styles.titleMovie, { color: colors.text }]}>{item.Title}</Text>
+                <Text style={[styles.year, { color: colors.textSecondary }]}>({item.Year})</Text>
               </View>
             </View>
           )}
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ItemSeparatorComponent={() => <View style={[styles.separator, { backgroundColor: colors.border }]} />}
           refreshControl={
-            <RefreshControl refreshing={isFetching && !isLoading} onRefresh={onRefresh} />
+            <RefreshControl
+              refreshing={isFetching && !isLoading}
+              onRefresh={onRefresh}
+              tintColor={colors.primary}
+            />
           }
           ListEmptyComponent={
-            <Text style={styles.empty}>Nenhum resultado para "{termo}"</Text>
+            <Text style={[styles.empty, { color: colors.text }]}>
+              {t("movies.noResultText")} "{termo}"
+            </Text>
           }
           contentContainerStyle={data.length === 0 && styles.emptyContainer}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -81,7 +118,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#232323ff',
   },
   loading: {
     marginTop: 32,
@@ -91,16 +127,14 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 12,
     textAlign: 'center',
-    color: '#ffffffff',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
     paddingHorizontal: 12,
     paddingVertical: 10,
     borderRadius: 8,
     marginBottom: 12,
-    backgroundColor: '#fafafa',
+    fontSize: 16,
   },
   item: {
     flexDirection: 'row',
@@ -112,7 +146,6 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 6,
     marginRight: 12,
-    backgroundColor: '#eee',
   },
   posterPlaceholder: {
     justifyContent: 'center',
@@ -120,7 +153,6 @@ const styles = StyleSheet.create({
   },
   posterPlaceholderText: {
     fontSize: 12,
-    color: '#ffffffff',
   },
   meta: {
     flexShrink: 1,
@@ -128,24 +160,24 @@ const styles = StyleSheet.create({
   titleMovie: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#ffffffff',
   },
   year: {
     marginTop: 2,
     fontSize: 14,
-    color: '#bcbcbcff',
   },
   separator: {
     height: 1,
-    backgroundColor: '#eaeaea',
   },
   empty: {
     textAlign: 'center',
     marginTop: 24,
-    color: '#5a5a5aff',
   },
   emptyContainer: {
     flexGrow: 1,
     justifyContent: 'center',
   },
+  error: {
+    textAlign: 'center',
+    marginTop: 20,
+  }
 });

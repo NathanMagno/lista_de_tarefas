@@ -14,8 +14,10 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../src/services/firebaseConfig";
 import { useTheme } from "../src/context/themeContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
+  const { t } = useTranslation();
   const { colors } = useTheme();
 
   const router = useRouter();
@@ -27,15 +29,15 @@ export default function Login() {
   useEffect(() => {
     const verificarUsuarioLogado = async () => {
       try {
-        const usuarioSalvo = await AsyncStorage.getItem('@User');
+        const usuarioSalvo = await AsyncStorage.getItem("@User");
         if (usuarioSalvo) {
           router.replace("/home");
         }
-      } catch (error){
-        console.log('Erro ao verificar login: ', error);
+      } catch (error) {
+        console.log("Erro ao verificar login: ", error);
       }
     };
-      verificarUsuarioLogado();
+    verificarUsuarioLogado();
   }, []);
 
   const togglePasswordVisibility = () => {
@@ -44,25 +46,31 @@ export default function Login() {
 
   const handleLogin = () => {
     if (!email || !password) {
-      Alert.alert("Atenção", "Preencha todos os campos!");
+      Alert.alert(
+        t("login.emptyFieldsWarningTitle"),
+        t("login.emptyFieldsWarningDesc")
+      );
       return;
     }
 
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
-        await AsyncStorage.setItem('@User', JSON.stringify(user));
+        await AsyncStorage.setItem("@User", JSON.stringify(user));
 
-        Alert.alert("Sucesso ao logar", `Usuário logado com sucesso!`);
+        Alert.alert(
+          t("login.successLoginTitle"),
+          t("login.successLoginDesc")
+        );
         router.replace("/home");
       })
       .catch((error) => {
         const errorCode = error.code;
         let message = "";
         if (errorCode === "auth/invalid-credential") {
-          message = "E-mail ou senha incorretos! Tente novamente";
+          message = t("login.invalidCredentials");
         } else {
-          message = "Erro ao fazer login. Tente novamente mais tarde.";
+          message = t("login.genericError");
         }
         setError(message);
       });
@@ -74,7 +82,7 @@ export default function Login() {
         <View style={[styles.inputBox, { backgroundColor: colors.surface }]}>
           <TextInput
             style={[styles.input, { color: colors.text }]}
-            placeholder="Insira seu e-mail"
+            placeholder={t("login.emailPlaceholder")}
             placeholderTextColor={colors.textSecondary}
             keyboardType="email-address"
             textContentType="emailAddress"
@@ -88,7 +96,7 @@ export default function Login() {
           <View style={styles.passwordRow}>
             <TextInput
               style={[styles.input, { flex: 1, color: colors.text }]}
-              placeholder="Insira sua senha"
+              placeholder={t("login.passwordPlaceholder")}
               placeholderTextColor={colors.textSecondary}
               secureTextEntry={hidePassword}
               value={password}
@@ -121,7 +129,7 @@ export default function Login() {
           style={[styles.btn, { backgroundColor: colors.primary }]}
         >
           <Text style={{ color: colors.textSecondary, fontSize: 20 }}>
-            Entrar
+            {t("login.loginButton")}
           </Text>
         </TouchableOpacity>
       </View>
@@ -173,7 +181,6 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-
     justifyContent: "center",
     alignItems: "center",
   },
