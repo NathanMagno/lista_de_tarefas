@@ -43,6 +43,9 @@ npm start
 
 ---
 
+## Link APK
+ - [Lista de tarefas Plus](https://expo.dev/artifacts/eas/mNvyyBcdPGbFxSmrDA58iF.aab)
+
 ## Login para testes
 
 Use o seguinte usuário de teste para acessar o app:
