@@ -40,7 +40,7 @@ export default function ListaDeFilmes() {
   }, [refetch]);
 
   return (
-    <BaseScreens title={t("movies.titleMovie")}>
+    <BaseScreens title={t("movies.titleMovie")} logoutButton>
       <TextInput
         placeholder={t("movies.moviesInputPlaceholder")}
         value={termo}

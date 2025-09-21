@@ -3,8 +3,9 @@ import { View, Text, StyleSheet } from "react-native";
 import ThemeToggleButton from "../ToggleThemeButton/ToggleThemeButton";
 import ToggleLanguage from "../LanguageToggleButton/LanguageToggleButton";
 import { useTheme } from "../../context/themeContext";
+import ExitButton from "../ExitButton/ExitButton";
 
-export default function BaseScreens({ children, title }) {
+export default function BaseScreens({ children, title, logoutButton = false }) {
   const { colors } = useTheme();
 
   return (
@@ -21,7 +22,16 @@ export default function BaseScreens({ children, title }) {
       >
         <Text style={[styles.title, { color: colors.text }]}>{title}</Text>
         <View>
-          <ThemeToggleButton />
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <ThemeToggleButton />
+            {logoutButton && <ExitButton />}
+          </View>
           <ToggleLanguage />
         </View>
       </View>

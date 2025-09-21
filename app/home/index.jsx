@@ -29,6 +29,7 @@ import { useTranslation } from "react-i18next";
 import BaseScreens from "../../src/_components/BaseScreens/BaseScreens";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as Notifications from "expo-notifications";
+import ListaDeFilmes from "../../src/_components/ListadeFilmes";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -62,15 +63,16 @@ export default function Home() {
         body: `Hora de: ${taskTitle}`,
         sound: true,
       },
-      trigger: { 
-        type: 'date', 
-        date: new Date(dueDateISO)
+      trigger: {
+        type: "date",
+        date: new Date(dueDateISO),
       },
     });
   };
 
   const verificarPermissoes = async () => {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
@@ -172,11 +174,14 @@ export default function Home() {
 
   const formatDueDate = (isoString) => {
     const date = new Date(isoString);
-    return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    })}`;
   };
 
   return (
-    <BaseScreens title={t("myTasks")}>
+    <BaseScreens title={t("myTasks")} logoutButton>
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
@@ -219,14 +224,20 @@ export default function Home() {
       />
 
       <TextInput
-        style={[styles.input, { borderColor: colors.primary, color: colors.text }]}
+        style={[
+          styles.input,
+          { borderColor: colors.primary, color: colors.text },
+        ]}
         placeholder={t("taskTitlePlaceholder")}
         placeholderTextColor={colors.placeH}
         value={newTitle}
         onChangeText={setNewTitle}
       />
       <TextInput
-        style={[styles.input, { borderColor: colors.primary, color: colors.text }]}
+        style={[
+          styles.input,
+          { borderColor: colors.primary, color: colors.text },
+        ]}
         placeholder={t("taskDescPlaceholder")}
         placeholderTextColor={colors.placeH}
         value={newDescription}
@@ -267,7 +278,14 @@ export default function Home() {
           {t("addTaskButton")}
         </Text>
       </TouchableOpacity>
-
+      <TouchableOpacity
+        style={[styles.btn, { backgroundColor: colors.btnMovies }]}
+        onPress={() => router.push("/home/filmes")}
+      >
+        <Text style={{ color: colors.text, fontSize: 20 }}>
+          {t("moviesListButton")}
+        </Text>
+      </TouchableOpacity>
     </BaseScreens>
   );
 }

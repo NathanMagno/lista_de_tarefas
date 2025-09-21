@@ -59,10 +59,7 @@ export default function Login() {
         const user = userCredential.user;
         await AsyncStorage.setItem("@User", JSON.stringify(user));
 
-        Alert.alert(
-          t("login.successLoginTitle"),
-          t("login.successLoginDesc")
-        );
+        Alert.alert(t("login.successLoginTitle"), t("login.successLoginDesc"));
         router.replace("/home");
       })
       .catch((error) => {
