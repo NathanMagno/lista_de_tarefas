@@ -201,7 +201,7 @@ export default function Home() {
               </Text>
               <Text style={{ color: colors.text }}>{item.description}</Text>
               {item.dueDate && (
-                <Text style={{ color: colors.textSecondary }}>
+                <Text style={{ color: colors.text }}>
                   📅 {formatDueDate(item.dueDate)}
                 </Text>
               )}
