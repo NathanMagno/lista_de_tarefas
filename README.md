@@ -44,7 +44,10 @@ npm start
 ---
 
 ## Link APK
- - [Lista de tarefas Plus](https://expo.dev/artifacts/eas/mNvyyBcdPGbFxSmrDA58iF.aab)
+ - [Lista de tarefas Plus](https://expo.dev/artifacts/eas/wug4cUn3TWhuhtiCQV7GhS.apk)
+
+## Link Vídeo Apresentaçào
+ - [Vídeo](https://youtu.be/jR9KVKz4VCQ)
 
 ## Login para testes
 
